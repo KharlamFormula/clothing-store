@@ -1,16 +1,52 @@
-# React + Vite
+# STYLEhub демонструє повний цикл обробки замовлення:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend → REST API → Stripe PaymentIntent → Підтвердження платежу → Очищення корзини
 
-Currently, two official plugins are available:
+Проєкт показує розуміння:
+- клієнт-серверної архітектури
+- безпечної обробки платежів
+- управління глобальним станом
+- розділення frontend / backend логіки
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Основні можливості:
 
-## React Compiler
+Корзина на Redux Toolkit;
+Фільтрація товарів та пошук;
+Сортування за ціною;
+Інтеграція Stripe (PaymentIntent API);
+Серверне підтвердження платежу;
+Взаємодія frontend з backend через Axios;
+Адаптивний дизайн;
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Технології
 
-## Expanding the ESLint configuration
+# Frontend:
+-React;
+-Redux Toolkit;
+-React Router;
+-Axios;
+-Stripe.js;
+-CSS;
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Backend:
+-Node.js;
+-Express;
+-Stripe API;
+-dotenv;
+-CORS;
+
+# Безпека:
+
+Секретні ключі зберігаються у .env
+Підтвердження платежу виконується на сервері
+Відсутні hardcoded ключі
+Frontend не має доступу до секретних даних
+
+# Що демонструє цей проєкт
+
+Побудову full-stack архітектури
+Роботу з REST API
+Безпечну інтеграцію Stripe
+Управління станом через Redux
+Роботу з асинхронними запитам
+Організацію чистої структури проєкту
