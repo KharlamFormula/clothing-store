@@ -10,37 +10,37 @@ Frontend → REST API → Stripe PaymentIntent → Підтвердження п
 
 # Основні можливості:
 
-Корзина на Redux Toolkit;
-Фільтрація товарів та пошук;
-Сортування за ціною;
-Інтеграція Stripe (PaymentIntent API);
-Серверне підтвердження платежу;
-Взаємодія frontend з backend через Axios;
-Адаптивний дизайн;
+- Корзина на Redux Toolkit;
+- Фільтрація товарів та пошук;
+- Сортування за ціною;
+- Інтеграція Stripe (PaymentIntent API);
+- Серверне підтвердження платежу;
+- Взаємодія frontend з backend через Axios;
+- Адаптивний дизайн;
 
 # Технології
 
 # Frontend:
--React;
--Redux Toolkit;
--React Router;
--Axios;
--Stripe.js;
--CSS;
+- React;
+- Redux Toolkit;
+- React Router;
+- Axios;
+- Stripe.js;
+- CSS;
 
 # Backend:
--Node.js;
--Express;
--Stripe API;
--dotenv;
--CORS;
+- Node.js;
+- Express;
+- Stripe API;
+- dotenv;
+- CORS;
 
 # Безпека:
 
-Секретні ключі зберігаються у .env
-Підтвердження платежу виконується на сервері
-Відсутні hardcoded ключі
-Frontend не має доступу до секретних даних
+-- Секретні ключі зберігаються у .env
+-- Підтвердження платежу виконується на сервері
+-- Відсутні hardcoded ключі
+-- Frontend не має доступу до секретних даних
 
 # Що демонструє цей проєкт
 
