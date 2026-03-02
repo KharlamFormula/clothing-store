@@ -36,7 +36,7 @@ const CheckoutForm = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/stripe/charge", {
+      const response = await axios.post("https://clothing-store-3es6.onrender.com/stripe/charge", {
         amount: totalAmount * 100,
         id: paymentMethod.id
       });
