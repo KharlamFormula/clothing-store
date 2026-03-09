@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: "https://your-frontend-url.netlify.app"
+  origin: "https://majestic-taffy-da65bb.netlify.app"
 }));
 
 app.post("/stripe/charge", async (req, res) => {
