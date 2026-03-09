@@ -1,3 +1,4 @@
+// CheckoutForm.jsx
 import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
@@ -26,9 +27,16 @@ const CheckoutForm = () => {
 
     if (!stripe || !elements) return;
 
+    if (totalAmount <= 0) {
+      console.log("Сума замовлення = 0, платіж неможливий");
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
-      card: elements.getElement(CardElement)
+      card: cardElement
     });
 
     if (error) {
@@ -41,16 +49,11 @@ const CheckoutForm = () => {
       return;
     }
 
-    if (totalAmount <= 0) {
-      console.log("Сума замовлення = 0, платіж неможливий");
-      return;
-    }
-
     try {
       const response = await axios.post(
         "https://clothing-store-3es6.onrender.com/stripe/charge",
         {
-          amount: totalAmount * 100, // Stripe приймає копійки
+          amount: totalAmount * 100, // Stripe працює з копійками
           id: paymentMethod.id
         }
       );
