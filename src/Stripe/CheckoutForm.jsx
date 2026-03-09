@@ -13,8 +13,9 @@ const CheckoutForm = () => {
   
   const items = useSelector(state => state.cart.items);
 
+  // totalAmount враховує quantity
   const totalAmount = items.reduce(
-    (sum, item) => sum + item.price,
+    (sum, item) => sum + item.price * (item.quantity || 1),
     0
   );
 
@@ -31,22 +32,35 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log(error.message);
+      console.log("Stripe Error:", error.message);
+      return;
+    }
+
+    if (!paymentMethod || !paymentMethod.id) {
+      console.log("PaymentMethod не створено");
+      return;
+    }
+
+    if (totalAmount <= 0) {
+      console.log("Сума замовлення = 0, платіж неможливий");
       return;
     }
 
     try {
-      const response = await axios.post("https://clothing-store-3es6.onrender.com/stripe/charge", {
-        amount: totalAmount * 100,
-        id: paymentMethod.id
-      });
+      const response = await axios.post(
+        "https://clothing-store-3es6.onrender.com/stripe/charge",
+        {
+          amount: totalAmount * 100, // Stripe приймає копійки
+          id: paymentMethod.id
+        }
+      );
 
       if (response.data.success) {
         setSuccess(true);
         dispatch(clearCart());
       }
     } catch (err) {
-      console.log(err);
+      console.log("Axios Error:", err.response?.data || err.message);
     }
   };
 

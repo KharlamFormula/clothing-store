@@ -7,7 +7,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const allowedOrigins = [
   "https://majestic-taffy-da65bb.netlify.app",
-  "http://localhost:5173"
+  "http://localhost:5173" 
 ];
 
 app.use(cors({
@@ -28,6 +28,10 @@ app.use(bodyParser.json());
 app.post("/stripe/charge", async (req, res) => {
   console.log("route reached", req.body);
   const { amount, id } = req.body;
+
+  if (!amount || !id) {
+    return res.status(400).json({ success: false, error: "Missing amount or paymentMethod id" });
+  }
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
