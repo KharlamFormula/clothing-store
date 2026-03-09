@@ -8,7 +8,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// CORS для фронтенду на Netlify
 app.use(cors({
   origin: "https://your-frontend-url.netlify.app"
 }));
