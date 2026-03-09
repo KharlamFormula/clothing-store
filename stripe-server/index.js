@@ -37,12 +37,9 @@ app.post("/stripe/charge", async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: "uah",
-      description: "Your Company Description",
-      payment_method: id,
-      confirm: true,
       automatic_payment_methods: { enabled: true }
     });
-
+    
     console.log("paymentIntent", paymentIntent.id);
 
     res.json({ success: true, paymentIntent });

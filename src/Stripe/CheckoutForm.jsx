@@ -1,4 +1,3 @@
-// CheckoutForm.jsx
 import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
@@ -14,7 +13,6 @@ const CheckoutForm = () => {
   
   const items = useSelector(state => state.cart.items);
 
-  // totalAmount враховує quantity
   const totalAmount = items.reduce(
     (sum, item) => sum + item.price * (item.quantity || 1),
     0
@@ -53,7 +51,7 @@ const CheckoutForm = () => {
       const response = await axios.post(
         "https://clothing-store-3es6.onrender.com/stripe/charge",
         {
-          amount: totalAmount * 100, // Stripe працює з копійками
+          amount: totalAmount * 100, 
           id: paymentMethod.id
         }
       );
