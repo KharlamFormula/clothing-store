@@ -1,3 +1,4 @@
+// server.js
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -7,7 +8,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const allowedOrigins = [
   "https://majestic-taffy-da65bb.netlify.app",
-  "http://localhost:5173" 
+  "http://localhost:5173"
 ];
 
 app.use(cors({
@@ -26,23 +27,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post("/stripe/charge", async (req, res) => {
-  console.log("route reached", req.body);
-  const { amount, id } = req.body;
+  const { amount } = req.body;
 
-  if (!amount || !id) {
-    return res.status(400).json({ success: false, error: "Missing amount or paymentMethod id" });
+  if (!amount || amount <= 0) {
+    return res.status(400).json({ success: false, error: "Invalid amount" });
   }
 
   try {
+    // Створюємо PaymentIntent без payment_method і confirm
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: "uah",
+      currency: "usd", // або "uah" якщо підтримує акаунт Stripe
       automatic_payment_methods: { enabled: true }
     });
-    
-    console.log("paymentIntent", paymentIntent.id);
 
-    res.json({ success: true, paymentIntent });
+    // Відправляємо client_secret на фронтенд
+    res.json({ success: true, clientSecret: paymentIntent.client_secret });
   } catch (error) {
     console.error("Stripe error:", error.message);
     res.status(400).json({ success: false, error: error.message });
