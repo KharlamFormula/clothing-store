@@ -5,12 +5,25 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const allowedOrigins = [
+  "https://majestic-taffy-da65bb.netlify.app",
+  "http://localhost:5173"
+];
 
 app.use(cors({
-  origin: "https://majestic-taffy-da65bb.netlify.app"
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.post("/stripe/charge", async (req, res) => {
   console.log("route reached", req.body);
