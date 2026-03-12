@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -34,14 +33,12 @@ app.post("/stripe/charge", async (req, res) => {
   }
 
   try {
-    // Створюємо PaymentIntent без payment_method і confirm
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: "usd", // або "uah" якщо підтримує акаунт Stripe
+      currency: "usd", 
       automatic_payment_methods: { enabled: true }
     });
 
-    // Відправляємо client_secret на фронтенд
     res.json({ success: true, clientSecret: paymentIntent.client_secret });
   } catch (error) {
     console.error("Stripe error:", error.message);

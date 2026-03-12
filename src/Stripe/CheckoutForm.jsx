@@ -26,7 +26,6 @@ const CheckoutForm = () => {
     if (totalAmount <= 0) return;
 
     try {
-      // Створюємо PaymentIntent на сервері
       const { data } = await axios.post(
         "https://clothing-store-3es6.onrender.com/stripe/charge",
         { amount: totalAmount * 100 }
@@ -34,7 +33,6 @@ const CheckoutForm = () => {
 
       const cardElement = elements.getElement(CardElement);
 
-      // Підтверджуємо платіж на фронтенді
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         data.clientSecret,
         { payment_method: { card: cardElement } }
