@@ -2,6 +2,10 @@
 
 Frontend → REST API → Stripe PaymentIntent → Підтвердження платежу → Очищення корзини
 
+# Live Demo
+
+https://majestic-taffy-da65bb.netlify.app/
+
 Проєкт показує розуміння:
 - клієнт-серверної архітектури
 - безпечної обробки платежів
