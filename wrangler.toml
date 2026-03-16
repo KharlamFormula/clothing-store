@@ -1,0 +1,13 @@
+name = "clothing-store"
+type = "javascript"
+
+account_id = "fa9cf2b608ece5a441250ccbdda2bee2" 
+workers_dev = true
+compatibility_date = "2026-03-16"
+
+[site]
+bucket = "./dist"        
+entry-point = "workers-site"
+
+[build]
+command = "npm run build"
