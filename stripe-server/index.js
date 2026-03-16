@@ -16,7 +16,7 @@ app.use(cors({
     ) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(null, true);
     }
 
   },
@@ -24,12 +24,13 @@ app.use(cors({
   allowedHeaders: ["Content-Type","Authorization"]
 }));
 
-app.options("*", cors());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post("/stripe/charge", async (req, res) => {
+app.options("/stripe/charge", cors());
+
+app.post("/stripe/charge", cors(), async (req, res) => {
+
   const { amount } = req.body;
 
   if (!amount || amount <= 0) {
@@ -37,17 +38,29 @@ app.post("/stripe/charge", async (req, res) => {
   }
 
   try {
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: "usd", 
+      currency: "usd",
       automatic_payment_methods: { enabled: true }
     });
 
-    res.json({ success: true, clientSecret: paymentIntent.client_secret });
+    res.json({
+      success: true,
+      clientSecret: paymentIntent.client_secret
+    });
+
   } catch (error) {
+
     console.error("Stripe error:", error.message);
-    res.status(400).json({ success: false, error: error.message });
+
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+
   }
+
 });
 
 const PORT = process.env.PORT || 8080;
