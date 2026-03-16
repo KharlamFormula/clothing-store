@@ -6,11 +6,6 @@ const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const allowedOrigins = [
-  "https://clothing-store-3nx.pages.dev",
-  "http://localhost:5173"
-];
-
-const allowedOrigins = [
   "https://majestic-taffy-da65bb.netlify.app",
   "http://localhost:5173",
   "https://clothing-store-3nx.pages.dev"
