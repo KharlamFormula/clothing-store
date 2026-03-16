@@ -3,9 +3,27 @@ const app = express();
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-app.use(cors());
+app.use(cors({
+  origin: (origin, callback) => {
+
+    if (
+      !origin ||
+      origin.includes("pages.dev") ||
+      origin.includes("localhost")
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+
+  },
+  methods: ["GET","POST","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"]
+}));
+
 app.options("*", cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
