@@ -4,7 +4,7 @@ Frontend → REST API → Stripe PaymentIntent → Підтвердження п
 
 # Live Demo
 
-https://majestic-taffy-da65bb.netlify.app/
+https://clothing-store-3nx.pages.dev/
 
 Проєкт показує розуміння:
 - клієнт-серверної архітектури
