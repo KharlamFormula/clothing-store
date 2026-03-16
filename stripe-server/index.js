@@ -5,29 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const allowedOrigins = [
-  "https://majestic-taffy-da65bb.netlify.app",
-  "http://localhost:5173",
-  "https://clothing-store-3nx.pages.dev"
-];
-
-app.use(cors({
-  origin: function(origin, callback) {
-
-    if (
-      !origin ||
-      allowedOrigins.includes(origin) ||
-      origin.includes("pages.dev")
-    ) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-
-  },
-  methods: ["GET","POST","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"]
-}));
+app.use(cors());
 app.options("*", cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
